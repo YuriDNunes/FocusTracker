@@ -1,9 +1,15 @@
 package br.com.yuri.Focus.tracker.data.dto;
 
 import br.com.yuri.Focus.tracker.model.Category;
+import lombok.*;
 
 import java.time.LocalDateTime;
 
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@EqualsAndHashCode(of = "id")
 public class SessionResponseDTO {
 
     private Long id;
@@ -11,12 +17,5 @@ public class SessionResponseDTO {
     private LocalDateTime beginDate;
     private LocalDateTime endDate;
     private Category category;
-
-    public SessionResponseDTO(String title, LocalDateTime beginDate, LocalDateTime endDate, Category category) {
-        this.title = title;
-        this.beginDate = beginDate;
-        this.endDate = endDate;
-        this.category = category;
-    }
 
 }
