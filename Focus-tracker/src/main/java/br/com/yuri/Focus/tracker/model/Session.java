@@ -20,5 +20,6 @@ public class Session {
     private String title;
     private LocalDateTime beginDate;
     private LocalDateTime endDate;
+    @Enumerated(EnumType.STRING)
     private Category category;
 }
