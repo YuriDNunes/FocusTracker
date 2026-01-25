@@ -6,7 +6,7 @@ import com.github.dozermapper.core.Mapper;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ObjcetMapper {
+public class ObjectMapper {
 
     private static Mapper mapper = DozerBeanMapperBuilder.buildDefault();
 
