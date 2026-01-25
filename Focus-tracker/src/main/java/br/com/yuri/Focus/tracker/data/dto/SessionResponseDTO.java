@@ -1,24 +1,21 @@
-package br.com.yuri.Focus.tracker.model;
+package br.com.yuri.Focus.tracker.data.dto;
 
-import jakarta.persistence.*;
+import br.com.yuri.Focus.tracker.model.Category;
 import lombok.*;
 
 import java.time.LocalDateTime;
 
-@Entity(name = "sessions")
-@Table(name = "sessions")
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(of = "id")
-public class Session {
+public class SessionResponseDTO {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String title;
     private LocalDateTime beginDate;
     private LocalDateTime endDate;
     private Category category;
+
 }
