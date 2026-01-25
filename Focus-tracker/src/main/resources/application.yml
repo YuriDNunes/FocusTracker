@@ -1,3 +1,15 @@
 spring:
   application:
     name: Focus-tracker
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/task-manager?createDatabaseIfNotExist=true
+    username: root
+    password: admin123
+  jpa:
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+    show_sql: false
+    open-in-view: false
