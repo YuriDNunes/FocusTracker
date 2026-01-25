@@ -1,39 +1,24 @@
 package br.com.yuri.Focus.tracker.model;
 
+import jakarta.persistence.*;
+import lombok.*;
+
 import java.time.LocalDateTime;
 
+@Entity(name = "sessions")
+@Table(name = "sessions")
+@Getter
+@Setter
+@AllArgsConstructor
+@NoArgsConstructor
+@EqualsAndHashCode(of = "id")
 public class Session {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String title;
     private LocalDateTime beginDate;
     private LocalDateTime endDate;
     private Category category;
-
-    public Session(String title, LocalDateTime beginDate, LocalDateTime endDate, Category category) {
-        this.title = title;
-        this.beginDate = beginDate;
-        this.endDate = endDate;
-        this.category = category;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public String getTitle() {
-        return title;
-    }
-
-    public LocalDateTime getBeginDate() {
-        return beginDate;
-    }
-
-    public LocalDateTime getEndDate() {
-        return endDate;
-    }
-
-    public Category getCategory() {
-        return category;
-    }
 }
