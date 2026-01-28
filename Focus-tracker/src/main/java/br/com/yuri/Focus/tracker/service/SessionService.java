@@ -7,6 +7,7 @@ import br.com.yuri.Focus.tracker.repositories.SessionRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.config.ConfigDataResourceNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -49,6 +50,24 @@ public class SessionService{
         return parseObject(entity, SessionResponseDTO.class);
     }
 
+    public SessionResponseDTO update(Long id, SessionRequestDTO session){
 
+        logger.info("Updating one session");
+        Session entity = repository.findById(id)
+                .orElseThrow(() -> new RuntimeException("No records found for this id"));
+
+        entity.setTitle(session.getTitle());
+        entity.setBeginDate(session.getBeginDate());
+        entity.setEndDate(session.getEndDate());
+        entity.setCategory(session.getCategory());
+
+        if (entity.getEndDate().isBefore(entity.getBeginDate())) {
+            throw new IllegalArgumentException("The end date needs to be after the begin date");
+        }
+
+        var updatedEntity = repository.save(entity);
+
+        return parseObject(updatedEntity, SessionResponseDTO.class);
+    }
 
 }
