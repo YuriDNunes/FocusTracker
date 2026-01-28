@@ -8,6 +8,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.context.config.ConfigDataResourceNotFoundException;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -68,6 +71,17 @@ public class SessionService{
         var updatedEntity = repository.save(entity);
 
         return parseObject(updatedEntity, SessionResponseDTO.class);
+    }
+
+    public ResponseEntity<?> delete(Long id){
+
+        logger.info("Deleting one session");
+        Session entity = repository.findById(id)
+                .orElseThrow(() -> new RuntimeException("No records found for this id"));
+
+        repository.delete(entity);
+
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
 }
