@@ -9,6 +9,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
+import static br.com.yuri.Focus.tracker.mapper.ObjectMapper.parseListObjects;
 import static br.com.yuri.Focus.tracker.mapper.ObjectMapper.parseObject;
 
 @Service
@@ -27,6 +30,13 @@ public class SessionService{
         if (entity.getEndDate().isBefore(entity.getBeginDate())) throw new IllegalArgumentException();
 
         return parseObject(repository.save(entity), SessionResponseDTO.class);
+    }
+
+    public List<SessionResponseDTO> listSessions(){
+
+        logger.info("Listing all focus sessions");
+
+        return parseListObjects(repository.findAll(), SessionResponseDTO.class);
     }
 
 }
