@@ -39,4 +39,16 @@ public class SessionService{
         return parseListObjects(repository.findAll(), SessionResponseDTO.class);
     }
 
+    public SessionResponseDTO findById(Long id){
+
+        logger.info("Finding one session");
+
+        var entity = repository.findById(id);
+        //TODO: make return not found exception when created
+
+        return parseObject(entity, SessionResponseDTO.class);
+    }
+
+
+
 }
