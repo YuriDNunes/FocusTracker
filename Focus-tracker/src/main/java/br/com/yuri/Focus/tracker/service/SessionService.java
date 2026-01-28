@@ -51,7 +51,6 @@ public class SessionService{
 
         var entity = repository.findById(id).
                 orElseThrow(() -> new ResourceNotFoundException("No records found for this ID"));
-        //TODO: make return not found exception when created
 
         return parseObject(entity, SessionResponseDTO.class);
     }
