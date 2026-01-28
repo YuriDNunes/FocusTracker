@@ -3,12 +3,12 @@ spring:
     name: Focus-tracker
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/task-manager?createDatabaseIfNotExist=true
+    url: jdbc:mysql://localhost:3306/task-manager?useTimezone=true&serverTimezone=UTC
     username: root
     password: admin123
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: none
     properties:
       hibernate:
     show_sql: false
