@@ -19,7 +19,9 @@ public class SessionRequestDTO {
     @NotBlank
     private String title;
 
+    @NotNull
     private LocalDateTime beginDate;
+    @NotNull
     private LocalDateTime endDate;
 
     @NotNull
