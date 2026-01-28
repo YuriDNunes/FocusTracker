@@ -2,6 +2,8 @@ package br.com.yuri.Focus.tracker.service;
 
 import br.com.yuri.Focus.tracker.data.dto.SessionRequestDTO;
 import br.com.yuri.Focus.tracker.data.dto.SessionResponseDTO;
+import br.com.yuri.Focus.tracker.exception.BadRequestException;
+import br.com.yuri.Focus.tracker.exception.ResourceNotFoundException;
 import br.com.yuri.Focus.tracker.model.Session;
 import br.com.yuri.Focus.tracker.repositories.SessionRepository;
 import org.slf4j.Logger;
@@ -31,7 +33,7 @@ public class SessionService{
         logger.info("Creating one session");
         var entity = parseObject(session, Session.class);
 
-        if (entity.getEndDate().isBefore(entity.getBeginDate())) throw new IllegalArgumentException();
+        if (entity.getEndDate().isBefore(entity.getBeginDate())) throw new BadRequestException("The end date needs to be after the begin date");
 
         return parseObject(repository.save(entity), SessionResponseDTO.class);
     }
@@ -47,7 +49,8 @@ public class SessionService{
 
         logger.info("Finding one session");
 
-        var entity = repository.findById(id);
+        var entity = repository.findById(id).
+                orElseThrow(() -> new ResourceNotFoundException("No records found for this ID"));
         //TODO: make return not found exception when created
 
         return parseObject(entity, SessionResponseDTO.class);
@@ -57,7 +60,7 @@ public class SessionService{
 
         logger.info("Updating one session");
         Session entity = repository.findById(id)
-                .orElseThrow(() -> new RuntimeException("No records found for this id"));
+                .orElseThrow(() -> new ResourceNotFoundException("No records found for this ID"));
 
         entity.setTitle(session.getTitle());
         entity.setBeginDate(session.getBeginDate());
@@ -73,15 +76,12 @@ public class SessionService{
         return parseObject(updatedEntity, SessionResponseDTO.class);
     }
 
-    public ResponseEntity<?> delete(Long id){
+    public void delete(Long id){
 
         logger.info("Deleting one session");
         Session entity = repository.findById(id)
-                .orElseThrow(() -> new RuntimeException("No records found for this id"));
-
+                .orElseThrow(() -> new ResourceNotFoundException("No records found for this ID"));
         repository.delete(entity);
-
-        return new ResponseEntity<>(HttpStatus.OK);
     }
 
 }
